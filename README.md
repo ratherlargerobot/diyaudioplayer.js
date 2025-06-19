@@ -2,17 +2,17 @@
 
 ## Overview
 
-_diyaudioplayer.js_ provides a basic API that can be used to build your own customized audio player, and embed it on your own web site.
+A customizable JavaScript audio player, that you can embed on your web site.
 
-The script itself handles the most basic functionality you would expect from an audio player that can read playlists and play audio.
+*diyaudioplayer.js* handles the basic functionality you would expect from an audio player. The DIY part comes into play when you integrate the player into your own web site, and customize the user interface elements.
 
-The DIY part comes into play when you integrate the player into your own web site, and wire up or customize the user interface elements.
+Implemented as a single vanilla JavaScript file with no required dependencies.
 
-Every web site is different. You can use some or all of the basic UI elements that are included to get you started. But none of them are required in order to use the core functionality of the module. You can start with the basic UI elements, and slowly customize your interface more and more, all the way up to the point where you seamlessly transition to a fully custom interface.
+Every web site is different. You can use some or all of the basic UI elements that are included to get you started. But none of them are required in order to use the core functionality of the script. You can start with the basic UI elements, and slowly customize your interface more and more, all the way up to the point where you seamlessly transition to a fully custom interface.
 
 Use as much, or as little, of *diyaudioplayer.js* as you like. It does this one thing, and tries to make the smallest number of assumptions about your web site as possible.
 
-**Official Website:** https://nathanrosenquist.com/diyaudioplayer.js/
+**Official Website (with interactive demo):** https://nathanrosenquist.com/diyaudioplayer.js/
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ Include *diyaudioplayer.js* from an HTML file:
 
 *diyaudioplayer.js* defines a single global variable called `diyaudioplayer`.
 This serves as a sort of *JavaScript* pseudo-namespace that contains everything
-in the module. All of your interactions with *diyaudioplayer.js* will be through
+in the script. All of your interactions with *diyaudioplayer.js* will be through
 this namespace, and its public functions.
 
 ### Create a JSON playlist, with the following format
