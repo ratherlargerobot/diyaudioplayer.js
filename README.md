@@ -71,7 +71,7 @@ Call the following *JavaScript* function somewhere on your page before or immedi
         <img id="diyAudioPlayPauseButton" src="/audionav/play.png">
     </a>
 
-The `diyaudioplayer.playPause()` function toggles the audio player between play and pause.
+The `diyaudioplayer.playPause()` function toggles the audio player between *Play* and *Pause*.
 
 The `cursor: pointer` CSS style element makes it so that when you roll over the `A` tag, your cursor turns into a hand. By doing it this way, the *JavaScript* function name doesn't show up in the browser status bar like it would with an `A` `href` link.
 
@@ -86,15 +86,13 @@ The following images in the base image URL path will be used if the `diyAudioPla
 
     <input type="range" id="diyAudioPlaybackPosition" value="0">
 
-The `id` setting tells *diyaudioplayer.js* that this is the slider bar that controls and represents the position in the track. During `diyaudioplayer.init()`, *diyaudioplayer.js* will set up several event handlers to link this slider up with the `HTMLAudioElement` object responsible for audio playback.
+The `id` setting tells *diyaudioplayer.js* that this is the slider bar that controls and represents the position in the track. During `diyaudioplayer.init()`, *diyaudioplayer.js* will set up several event listeners to link this slider up with the `HTMLAudioElement` object responsible for audio playback.
 
-When the user moves the slider, it will update the position of audio playback.
+When the user moves the slider, it will update the position of audio playback for the current track.
 
-When audio is playing back, the position of the slider will be updated to match the current position of playback.
+When audio is playing back, the position of the slider will be updated to match the current playback position.
 
-When audio is played for the first time, the `pointer-events: none` CSS style will be removed from this element.
-
-The `value="0"` attribute sets the slider to the left side, at the beginning of the track, before playback has started.
+The `value="0"` attribute initializes the slider to the left side, at the beginning of the track, before playback has started.
 
 ### Add some combination of the elapsed/remaining/duration time display elements
 
@@ -108,9 +106,9 @@ Typically you would want *remaining*, or *duration*, but maybe not both.
 
 The `id` fields tell *diyaudioplayer.js* that these elements are designated for displaying the elapsed/remaining/duration times for the track. As the track plays, or the user drags the playback position slider, the values inside of these tags will be updated and replaced frequently.
 
-The `--:--` entries inside of the tags are intended to represent an initial starting state that will be replaced immediately as soon as a track is loaded. Note that mobile browsers may defer loading until as late as possible to save bandwidth.
+The `--:--` entries inside of the tags are intended to represent an initial starting state that will be replaced immediately as soon as a track is loaded. Note that mobile browsers often defer loading until as late as possible to save bandwidth.
 
-It is possible to set the *no time* value using the `diyaudioplayer.setNoTimeDisplay()` function. If you set this to something other than `--:--`, update these values inside of the tags to match that value.
+It is possible to set the *no time* display value using the `diyaudioplayer.setNoTimeDisplay()` function. If you set this to something other than `--:--`, update these values inside of the tags to match that value.
 
 ### Add previous track / next track buttons
 
@@ -128,13 +126,13 @@ It is possible to set the *no time* value using the `diyaudioplayer.setNoTimeDis
 
 The `diyaudioplayer.prevTrack()` and `diyaudioplayer.nextTrack()` functions tell *diyaudioplayer.js* to skip to the previous or next track, respectively.
 
-The id fields tell *diyaudioplayer.js* that these elements represent the `A` links and `IMG` elements, respectively. *diyaudioplayer.js* has built-in support to enable and disable these links, and show alternate *disabled* images, when the playlist is at the very first track or the very last track.
+The `id` fields tell *diyaudioplayer.js* that these elements represent the `A` links and `IMG` elements associated with the *Previous Track* and *Next Track* buttons. *diyaudioplayer.js* has built-in support to enable and disable these links, and show alternate *disabled* images, when the playlist is at the very first track or the very last track.
 
 If you don't want this behavior, you can just omit the `id` fields.
 
-If you don't disable the previous / next track buttons in this manner, then pressing them will cause the track skipping to up loop around to the beginning or end of the playlist, respectively.
+If you don't disable the *Previous Track* / *Next Track* buttons in this manner, then pressing them at either end of the playlist will loop around to the other side of the playlist, instead of stopping at the ends.
 
-The following images in the base image URL path will be used if these elements are enabled:
+The following images in the base image URL path will be used if these `id` elements are enabled:
 
  - `prev.png`
  - `next.png`
@@ -143,20 +141,15 @@ The following images in the base image URL path will be used if these elements a
 
 ### Add links to the individual tracks in the playlist
 
-*diyaudioplayer.js* does not have built-in support for displaying the list of tracks. This is where the DIY part starts to come into play.
+*diyaudioplayer.js* does not have built-in support for displaying the list of tracks in the playlist. This is where the DIY part starts to come into play.
 
-Ideally, you can use the same playlist JSON data source to generate these dynamically, using a static site generator, server-side back-end language, or even *JavaScript* to generate this part of the HTML page.
+Ideally, you can use the same playlist JSON data source to generate these dynamically, using a [static site generator](https://nathanrosenquist.com/uriel/), back-end server-side language, or even client-side *JavaScript* to generate this part of the HTML page. This example just uses static HTML for simplicity.
 
 Construct links to each element in the playlist, where each link target corresponds to the index into the playlist array that you passed into `diyaudioplayer.init()`
 
-    <a onclick="diyaudioplayer.playTrack(0)"
-        style="cursor: pointer;">Track 1</a>
-
-    <a onclick="diyaudioplayer.playTrack(1)"
-        style="cursor: pointer;">Track 2</a>
-
-    <a onclick="diyaudioplayer.playTrack(2)"
-        style="cursor: pointer;">Track 3</a>
+    <a onclick="diyaudioplayer.playTrack(0)" style="cursor: pointer;">Track 1</a>
+    <a onclick="diyaudioplayer.playTrack(1)" style="cursor: pointer;">Track 2</a>
+    <a onclick="diyaudioplayer.playTrack(2)" style="cursor: pointer;">Track 3</a>
 
 At this point, you should have a fully-functional proof of concept audio player with a basic user interface. You are strongly encouraged to move all of the basic elements around on the page, and to style everything with CSS.
 
@@ -170,10 +163,10 @@ The next step in customization is to define some basic event handlers, and regis
 
 There are four basic events that you can register custom handler functions for:
 
- - Play
- - Pause
- - Stop
- - Track Change
+ - *Play*
+ - *Pause*
+ - *Stop*
+ - *Track Change*
 
 Note that many modern audio player interfaces do not actually have a stop button. You may find that a single *Play/Pause* toggle button is all you need.
 
@@ -235,7 +228,7 @@ Each user-defined function is executed inside of a `try/catch` block. In case yo
 If you want to build a complete user interface from scratch, and not use any of the default UI settings, follow the steps in this section. You can still use the included assets however you like, but this section assumes that you won't be using any of the special integration that *diyaudioplayer.js*
 has with the basic UI elements. Instead, you'll need to define and register callback functions to be notified about various events, and then build your user interface so that it responds to those callbacks.
 
-*diyaudioplayer.js* works perfectly well without any user interface whatsoever (with the caveat that autoplay is disabled in most browsers, and it needs some sort of user action to get it going). If you wire up UI elements into its public API, you can build your own interface entirely from scratch, and
+*diyaudioplayer.js* works perfectly well without any user interface whatsoever (with the caveat that *autoplay* is disabled in most browsers, and it needs some sort of user action to get it going). If you wire up UI elements into its public API, you can build your own interface entirely from scratch, and
 just let *diyaudioplayer.js* handle the audio playback part.
 
 In this case, see the *Public Functions* documentation, and just add the elements you need for your particular situation.
@@ -250,14 +243,9 @@ There are a lot more functions besides these. But if you call `diyaudioplayer.in
 
 An extremely simple proof of concept interface to get you started:
 
-    <a onclick="diyaudioplayer.playPause()"
-        style="cursor: pointer;">Play/Pause</a>
-
-    <a onclick="diyaudioplayer.prevTrack()"
-        style="cursor: pointer;">Previous Track</a>
-
-    <a onclick="diyaudioplayer.nextTrack()"
-        style="cursor: pointer;">Next Track</a>
+    <a onclick="diyaudioplayer.playPause()" style="cursor: pointer;">Play/Pause</a>
+    <a onclick="diyaudioplayer.prevTrack()" style="cursor: pointer;">Previous Track</a>
+    <a onclick="diyaudioplayer.nextTrack()" style="cursor: pointer;">Next Track</a>
 
 You will almost certainly want to write your own callback handler functions to be notified of various events, and then update your UI when those functions are called. See the *Adding Basic Event Handlers* section above for the details.
 
