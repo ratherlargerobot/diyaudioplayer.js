@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>diyaudioplayer.js - Customized Example</title>
+    <style>
+        A {
+            color: #0000ff;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="../diyaudioplayer.js"></script>
+    <script>
+        // create the playlist
+        // note the extra custom keys in each object besides the required
+        // "url" field, so we can reference them for custom UI elements
+        playlist = [
+            {
+                "title": "Stardust",
+                "artist": "JSH",
+                "image": "images/jsh.jpg",
+                "url": "mp3/jsh-stardust.mp3"
+            },
+            {
+                "title": "Melancholy Tune",
+                "artist": "Rafael Archangel",
+                "image": "images/rafael-archangel.jpg",
+                "url": "mp3/rafael-archangel-melancholy-tune.mp3"
+            },
+            {
+                "title": "The Queen",
+                "artist": "Malaventura",
+                "image": "images/malaventura.jpg",
+                "url": "mp3/malaventura-the-queen.mp3"
+            }
+        ]
+
+        // play event handler
+        function handlePlay() {
+            console.log("play");
+        }
+
+        // pause event handler
+        function handlePause() {
+            console.log("pause");
+        }
+
+        // stop event handler
+        function handleStop() {
+            console.log("stop");
+        }
+
+        // Accepts playlistIndex, which is an index into the playlist JSON array
+        //
+        // This example assumes that the current playlist
+        // (e.g. that you passed to diyaudioplayer.init())
+        // can be referenced as "playlist" in the scope this function is defined
+        //
+        // HINT: add other keys to your playlist objects besides "url",
+        //       and use them to update the UI with the song title,
+        //       custom images, etc.
+        function handleTrackChange(playlistIndex) {
+            const track = playlist[playlistIndex];
+
+            console.log("track change: " + track["title"] + " - " + track["artist"]);
+
+            const titleDiv = document.getElementById("currentTrackTitle");
+            if (null != titleDiv) {
+                titleDiv.innerHTML = track["title"];
+            }
+
+            const artistDiv = document.getElementById("currentTrackArtist");
+            if (null != artistDiv) {
+                artistDiv.innerHTML = track["artist"];
+            }
+
+            const trackImg = document.getElementById("currentTrackImage");
+            if (null != trackImg) {
+                trackImg.src = track["image"];
+            }
+
+            // update the visible playlist links to indicate the current track
+            for (let i=0; i < playlist.length; i++) {
+                // reference the A tag id="playlistTrack0" element
+                // corresponding to the current track
+                let playlistTrackLink = document.getElementById("playlistTrack" + i);
+                if (null != playlistTrackLink) {
+                    // current track
+                    if (i == playlistIndex) {
+                        playlistTrackLink.style["font-weight"] = "bold";
+
+                    // not the current track
+                    } else {
+                        playlistTrackLink.style["font-weight"] = "normal";
+                    }
+                }
+            }
+        }
+
+        // set the URL to find the player controller images
+        diyaudioplayer.setBaseImageUrl("audionav/");
+
+        // enable display time padding
+        diyaudioplayer.enableDisplayTimeZeroPad();
+
+        // register event handlers
+        diyaudioplayer.registerPlayHandler(handlePlay);
+        diyaudioplayer.registerPauseHandler(handlePause);
+        diyaudioplayer.registerStopHandler(handleStop);
+        diyaudioplayer.registerTrackChangeHandler(handleTrackChange);
+    </script>
+</head>
+
+<body onload="diyaudioplayer.init(playlist)">
+
+<h1><a href="https://nathanrosenquist.com/diyaudioplayer.js/">diyaudioplayer.js</a></h1>
+
+<p>Customized Example</p>
+
+<p>
+    <div id="currentTrackTitle" style="font-size: 24pt; font-style: italic;">&nbsp;</div>
+    <div id="currentTrackArtist" style="font-size: 14pt;">&nbsp;</div>
+    <div><img id="currentTrackImage" style="height: 290px; width: 290px;"></div>
+</p>
+
+<nobr><!--
+
+    previous track button
+
+--><a onclick="diyaudioplayer.prevTrack()" id="diyAudioPrevTrackLink" style="cursor: pointer;"
+><img id="diyAudioPrevTrackImg" src="audionav/prev.png"></a><!--
+
+    play/pause button
+
+--><a onclick="diyaudioplayer.playPause()" style="cursor: pointer;"
+><img id="diyAudioPlayPauseButton" src="audionav/play.png"></a><!--
+
+    next track button
+
+--><a onclick="diyaudioplayer.nextTrack()" id="diyAudioNextTrackLink" style="cursor: pointer;"
+><img id="diyAudioNextTrackImg" src="audionav/next.png"></a></nobr>
+
+<br>
+
+<!-- playback position slider bar -->
+<input type="range" id="diyAudioPlaybackPosition" value="0" style="width: 300px;">
+
+<br>
+
+<!-- track time counters -->
+<table style="width: 300px;">
+    <tr>
+        <td style="text-align: left;"><code id="diyAudioTimeElapsed">--:--</code></td>
+        <td style="text-align: right;"><code id="diyAudioTimeRemaining">--:--</code></td>
+    <tr>
+</table>
+<!-- <code id="diyAudioTimeDuration">--:--</code><br> -->
+
+<h3>Playlist</h3>
+
+<ol>
+    <li><a onclick="diyaudioplayer.playTrack(0)"
+            id="playlistTrack0"
+            style="cursor: pointer;">Stardust - JSH</a></li>
+    <li><a onclick="diyaudioplayer.playTrack(1)"
+            id="playlistTrack1"
+            style="cursor: pointer;">Melancholy Tune - Rafael Archangel</a></li>
+    <li><a onclick="diyaudioplayer.playTrack(2)"
+            id="playlistTrack2"
+            style="cursor: pointer;">The Queen - Malaventura</a></li>
+</ol>
+
+<h3>Alternate Navigation Elements</h3>
+
+<p>
+    The example navigation elements below do not use the basic UI <i>id</i> values,
+    so they do not get automatically updated by <i>diyaudioplayer.js</i>
+</p>
+
+<a href="javascript:diyaudioplayer.prevTrack()">Prev</a>
+|
+<a href="javascript:diyaudioplayer.stop()">Stop</a>
+|
+<a href="javascript:diyaudioplayer.play()">Play</a>
+|
+<a href="javascript:diyaudioplayer.pause()">Pause</a>
+|
+<a href="javascript:diyaudioplayer.playPause()">Play/Pause</a>
+|
+<a href="javascript:diyaudioplayer.nextTrack()">Next</a>
+
+</body>
+</html>

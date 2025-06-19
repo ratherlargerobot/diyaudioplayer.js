@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>diyaudioplayer.js - Basic User Interface Example</title>
+    <style>A { color: #0000ff; text-decoration: underline; }</style>
+    <script src="../diyaudioplayer.js"></script>
+    <script>
+        // create the playlist
+        playlist = [
+            {
+                "url": "mp3/jsh-stardust.mp3"
+            },
+            {
+                "url": "mp3/rafael-archangel-melancholy-tune.mp3"
+            },
+            {
+                "url": "mp3/malaventura-the-queen.mp3"
+            }
+        ]
+
+        // set the URL to find the player controller images
+        diyaudioplayer.setBaseImageUrl("audionav/");
+    </script>
+</head>
+
+<body onload="diyaudioplayer.init(playlist)">
+
+<h1><a href="https://nathanrosenquist.com/diyaudioplayer.js/">diyaudioplayer.js</a></h1>
+
+<p>Basic User Interface Example</p>
+
+<!-- previous track button -->
+<a onclick="diyaudioplayer.prevTrack()" id="diyAudioPrevTrackLink" style="cursor: pointer;"
+><img id="diyAudioPrevTrackImg" src="audionav/prev.png"></a>
+
+<!-- play/pause button -->
+<a onclick="diyaudioplayer.playPause()" style="cursor: pointer;"
+><img id="diyAudioPlayPauseButton" src="audionav/play.png"></a>
+
+<!-- next track button -->
+<a onclick="diyaudioplayer.nextTrack()" id="diyAudioNextTrackLink" style="cursor: pointer;"
+><img id="diyAudioNextTrackImg" src="audionav/next.png"></a>
+
+<br>
+
+<!-- playback position slider bar -->
+<input type="range" id="diyAudioPlaybackPosition" value="0" style="width: 300px;">
+
+<br>
+
+<!-- track time counters -->
+Elapsed: <span id="diyAudioTimeElapsed">--:--</span><br>
+Remaining: <span id="diyAudioTimeRemaining">--:--</span><br>
+Duration: <span id="diyAudioTimeDuration">--:--</span><br>
+
+<h3>Playlist</h3>
+
+<ol>
+    <li><a onclick="diyaudioplayer.playTrack(0)" style="cursor: pointer;">Stardust - JSH</a></li>
+    <li><a onclick="diyaudioplayer.playTrack(1)" style="cursor: pointer;">Melancholy Tune - Rafael Archangel</a></li>
+    <li><a onclick="diyaudioplayer.playTrack(2)" style="cursor: pointer;">The Queen - Malaventura</a></li>
+</ol>
+
+</body>
+</html>
